@@ -3,9 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>d3 Scatter Plot</title>
-        <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
-        <script src="d3.legend.js"></script>
-        
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <!-- Styles for our vis  -->
         <style>
         body {
@@ -32,28 +30,24 @@
         }
          </style>
     </head>
-    <body onload='init()'>
+    <body>
         <div id="vis-container"></div>
 
         <!-- Optionally reference your vis JS file here, or define in a script tag -->
         <!-- <script type="text/javascript" src="js/my-vis.js"></script> -->
         <script type="text/javascript">
-            
-            async function init() {
-    
-            data=await d3.csv('data/team_goals.csv')            
-             /*
+
             d3.csv('data/team_goals.csv', function loadCallback(error, data) {
-               data.forEach(function(d) { // convert strings to numbers
+               /* data.forEach(function(d) { // convert strings to numbers
                     d.Goals = +d.Goals;
                     d.YEAR = +d.YEAR;
                 });
-                
+                */
                 makeVis(data);
             });
-            */
 
-                        // Common pattern for defining vis size and margins
+          var makeVis = function(data) {
+              // Common pattern for defining vis size and margins
               var margin = { top: 20, right: 20, bottom: 30, left: 40 },
                   width  = 1500 - margin.left - margin.right,
                   height = 500 - margin.top - margin.bottom;
@@ -66,24 +60,18 @@
                   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
               // Define our scales
-              var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
-                
-            //var symbols = d3.scaleOrdinal(d3.symbols);
+              var colorScale = d3.scale.category20c();
 
-            // creates a generator for symbols
-            //var symbol = d3.symbol().size(100);                  
-
-
-              var xScale = d3.scaleLinear().domain([1925,2030])
+              var xScale = d3.scale.linear().domain([1925,2020])
                   //.domain([ d3.min(data, function(d) { return d.YEAR; }) - 1,
                     //        d3.max(data, function(d) { return d.YEAR; }) + 1 ])
                   .range([0, width]);
 
-              var yScale = d3.scaleLinear().domain([0,28])
+              var yScale = d3.scale.linear().domain([0,28])
                   //.domain([ d3.min(data, function(d) { return d.Goals; }) - 1,
                     //        d3.max(data, function(d) { return d.Goals; }) + 1 ])
                   .range([height, 0]); // flip order because y-axis origin is upper LEFT
-            /*
+
               // Define our axes
               var xAxis = d3.svg.axis()
                   .scale(xScale)
@@ -92,13 +80,6 @@
               var yAxis = d3.svg.axis()
                   .scale(yScale)
                   .orient('left');
-                */
-                
-              var xAxis = d3.axisBottom()
-                .scale(xScale)
-
-              var yAxis = d3.axisLeft()
-                .scale(yScale)                
 
               // Add x-axis to the canvas
               canvas.append("g")
@@ -152,7 +133,6 @@
               };
 
               // Add data points!
-              
               canvas.selectAll(".dot")
                 .data(data)
               .enter().append("circle")
@@ -163,105 +143,7 @@
                 .style("fill", function(d) { return colorScale(d.HOMETEAM); })
                 .on("mouseover", tipMouseover)
                 .on("mouseout", tipMouseout);
-                
-                
-                canvas.append("g")
-                  .attr("class", "legendSequential")
-                  .attr("transform", "translate("+(width)+","+(height)+")");
-
-                var legendSequential = d3.legend.color()
-                    .shapeWidth(30)
-                    .cells(11)
-                    .orient("vertical")
-                        .title("Link legend:")
-                        .titleWidth(1000)
-                    .scale(colorScale) 
-
-                canvas.select(".legendSequential")
-                  .call(legendSequential); 
-            
-                
-              /*
-                canvas.selectAll(".symbol")
-                    .data(data)
-                    .enter().append("path")
-                    .attr("class", "symbol")
-                    .attr("d", function(d, i) { return symbol.type(symbols(d.HOMETEAM))(); })
-                    .style("fill", function(d) { return colorScale(d.HOMETEAM); })
-                    .attr("transform", function(d) { 
-                      return "translate(" + xScale(parseInt(d.YEAR)) + "," + yScale(parseInt(d.Goals)) +")"; 
-                    });
-                
-           
-             var clicked = ""
-
-              var legend = canvas.selectAll(".legend")
-                .data(colorScale.domain())
-              .enter().append("g")
-                .attr("class", "legend")
-                .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-              legend.append("path")
-                .style("fill", function(d) { return colorScale(d); })
-                    .attr("d", function(d, i) { return symbol.type(symbols(d))(); })
-                    .attr("transform", function(d, i) { 
-                        return "translate(" + (width -10) + "," + 10 + ")";
-                    })
-                    .on("click",function(d){
-               d3.selectAll(".dot").style("opacity",1)
-
-               if (clicked !== d){
-                 d3.selectAll(".dot")
-                   .filter(function(e){
-                   return e.species !== d;
-                 })
-                   .style("opacity",0.1)
-                 clicked = d
-               }
-                else{
-                  clicked = ""
-                }
-              });
-
-              legend.append("text")
-                  .attr("x", width -50)
-                  .attr("y", 9)
-                  .attr("dy", ".35em")
-                  .style("text-anchor", "end")
-                  .text(function(d) { return d; });
-                
-                
-         canvas.append("path")
-              .attr("class", "line")
-              .attr("d", function(d) { return line(parseInt(d.YEAR); })
-              .attr("data-legend",function(d) { return parseInt(d.Goals)})
-              .style("stroke", function(d) { return color(d.HOMETEAM); });
-
-          canvas.append("text")
-              .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-              .attr("transform", function(d) { return "translate(" + xScale(d.value.date) + "," + yScale(d.value.temperature) + ")"; })
-              .attr("x", 3)
-              .attr("dy", ".35em")
-              .text(function(d) { return d.HOMETEAM; });
-
-                
-                  legend = canvas.append("g")
-    .attr("class","legend")
-    .attr("transform","translate(500,300)")
-    .style("font-size","12px")
-    .call(d3.legend)
-
-  setTimeout(function() { 
-    legend
-      .style("font-size","20px")
-      .attr("data-style-padding",10)
-      .call(d3.legend)
-  },1000)
-            */
-
-
-                
-            }
+          };
 
         </script>
     </body>
