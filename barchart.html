@@ -36,7 +36,7 @@ var svg = d3.select("body").append("svg")
 	.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("data/pivot_fifa.csv", function(error, data){
+d3.csv("https://raw.githubusercontent.com/ramesh-edu/week8/master/data/pivot_fifa.csv", function(error, data){
 
 	// filter year
 	//var data = data.filter(function(d){return d.Year == '2012';});

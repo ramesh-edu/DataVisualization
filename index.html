@@ -43,7 +43,8 @@
             
             async function init() {
     
-            data=await d3.csv('data/team_goals.csv')            
+            //data=await d3.csv('data/team_goals.csv')            
+                data=await d3.csv('https://raw.githubusercontent.com/ramesh-edu/week8/master/data/team_goals.csv')            
              /*
             d3.csv('data/team_goals.csv', function loadCallback(error, data) {
                data.forEach(function(d) { // convert strings to numbers
@@ -57,7 +58,7 @@
 
                         // Common pattern for defining vis size and margins
               var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-                  width  = 1500 - margin.left - margin.right,
+                  width  = 800 - margin.left - margin.right,
                   height = 500 - margin.top - margin.bottom;
 
               // Add the visualization svg canvas to the vis-container <div>
