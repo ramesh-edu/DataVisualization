@@ -181,7 +181,7 @@ svg {
 
     <!-- Tab links -->
 <div class="tab">
-    <button class="tablinks" onclick="openChart(event, 'ScatterPlot')">Page1</button>
+    <button class="tablinks" onclick="openChart(event, 'ScatterPlot')" id="defaultOpen">Page1</button>
     <button class="tablinks" onclick="openChart(event, 'BarChart')">Page2</button>
     <button class="tablinks" onclick="openChart(event, 'BubbleChart')">Page3</button>
   </div>
@@ -248,6 +248,9 @@ svg {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.min.js"></script>
 
 <script>
+    
+document.getElementById("defaultOpen").click();
+    
     function openChart(evt, cityName) {
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
