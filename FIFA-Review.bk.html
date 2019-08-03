@@ -3,23 +3,6 @@
 <head>
 <style>
 
-svg {
- font: 16px"Avenir";
-
-}
-  
-  div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: 60px;					
-    height: 45px;					
-    padding: 2px;				
-    font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
-  }    
 
 /* Slideshow container */
 .slideshow-container {
@@ -130,129 +113,35 @@ svg {
   stroke: #000;
   shape-rendering: crispEdges;
 }
-
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-}
 </style>
 </head>
 <body>
-    <h1 align="center">FIFA World Cup </h1>
-    <h4 align="center">(Team Performance Review)</h4>
-
-    <!-- Tab links -->
-<div class="tab">
-    <button class="tablinks" onclick="openChart(event, 'ScatterPlot')">Scatter Plot</button>
-    <button class="tablinks" onclick="openChart(event, 'BarChart')">Bar Chart</button>
-    <button class="tablinks" onclick="openChart(event, 'BubbleChart')">Bubble Chart</button>
-  </div>
-  
-  <!-- Tab content -->
-  <div id="ScatterPlot" class="tabcontent">
-      <div id="scatter">
-        <p>This graph shows values of two variables plotted along two axes (X-axis as year, Y-axis as number of goals). <br>
-          The pattern of the resulting points reveals country that make number of goals in that FIFA world cup year.
-          <br> Each point color represents different country. On highlighting the point shows country name, year and number of goals below the scatter plot. 
-        </p>
-      </div>
-  </div>
-  
-  <div id="BarChart" class="tabcontent">
-          <div id="drop" align=center></div>
-      <div id="bar"> 
-        <p>Based on selected year, below bar chart shows number of goals by participated country in the FIFA world cup of the selected year. <br>
-         On highligting the bar will show the details of country and number of goals as a tool tip.
-        </p>
-      </div>
-  </div>
-  
-  <div id="BubbleChart" class="tabcontent">
-    <div id="bubble">
-      <p>This chart provides the information of overall perforamnce of the teams in the worldcup based on number of goals <br>
-        The team which performed more goals has been with larger area and teams with less number of goals made during the world cup with lesser area.  Here it was considered overall goals made during all the world cups.
-      </p>
-    </div>
-  </div>
 <div class="slideshow-container">
 
   <!-- Full-width images with number and caption text -->
-  <!--div class="mySlides fade">
-	<h2 align="center">Scatter plot</h2>
-  <div id="scatter"> This graph shows values of two variables plotted along two axes (X-axis as year, Y-axis as number of goals). <br>
-    The pattern of the resulting points reveals country that make number of goals in that FIFA world cup year.
-  <br> Each point color represents different country. On highlighting the point shows country name, year and number of goals below the scatter plot. </div>
+  <div class="mySlides fade">
+	<h1 align="center">Scatter plot</h1>
+	<div id="scatter"> This will be scatter plot hi</div>
   </div>
 
   <div class="mySlides fade">
-	<h2 align="center">Bar chart</h2>
+	<h1 align="center">Bar chart</h1>
     <div id="drop" align=center></div>
-  <div id="bar" align=center> Based on selected year, below bar chart shows number of goals by participated country in the FIFA world cup of the selected year. <br>
-  On highligting the bar will show the details of country and number of goals as a tool tip.</div>
+	<div id="bar" align=center> This is bar chart hello</div>
   </div>
 
+  <!-- Next and previous buttons -->
   
-  
-</div-->
+</div>
 <br>
 
 <!-- The dots/circles -->
-<!--div style="text-align:center">
+<div style="text-align:center">
   <span class="dot" onclick="currentSlide(1)"></span> 
   <span class="dot" onclick="currentSlide(2)"></span> 
-</div-->
-<script src="https://d3js.org/d3.v4.min.js"></script>
-    
-<script src="https://d3js.org/d3.v4.js"></script>  
+</div>
+<script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.min.js"></script>
-
-<script>
-    function openChart(evt, cityName) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-      document.getElementById(cityName).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-    </script>
 
 <script>
 
@@ -319,6 +208,10 @@ var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
     
       const innerWidth = width - margin.left - margin.right;
     
+
+
+    
+
     
   // Add dots
   canvas.append('g')
@@ -499,155 +392,7 @@ d3.csv("https://raw.githubusercontent.com/ramesh-edu/week8/master/data/pivot_fif
 
 });    
     
-
     
-//var width=900;
-//var height=500;
-    
-var svg = d3.select("#bubble").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
-
-
-
-  // Define the div for the tooltip
-var div = d3.select("body").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
-    
-
-d3.csv("data/total_goals.csv", function(d) {
-  d.value = +d["Goals"];
-  d.Call_Type = d["HOMETEAM"]
-
- 	return d;
-}, function(error, data) {
-  if (error) throw error;
-
-  
- /*
-  var color = d3.scaleOrdinal()
-  .domain(data.map(function(d){ return d.Call_Type;}))
-  .range(['#fbb4ae','#b3cde3','#ccebc5','#decbe4','#fed9a6',
-  '#ffe9a8','#b9bfe3','#fddaec','#cccccc']);
-    */
-    
-
-  /*
-  svg.append("text")
-    .attr("x", 100)   
-    .attr("y", 420 )
-    .attr("dy", "3.5em" )
-    .attr("text-anchor", "start")  
-    .style("font-size", "28px")  
-  	.style("font-weight", "bold")
-    .text("Overall Goals by Teams in FIFA Worldcup")
-*/
-var pack = d3.pack()
-    .size([width-150, height])
-    .padding(1.5);
-    
-    
-  var color = d3.scaleOrdinal(d3.schemeCategory20);
-    
-  
-  var root = d3.hierarchy({children: data})
-      .sum(function(d) { return d.value; })
-
-  var node = svg.selectAll(".node")
-    .data(pack(root).leaves())
-    .enter().append("g")
-      .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
- 
-  
-  node.append("circle")
-      .attr("id", function(d) { return d.id; })
-      .attr("r", function(d) { return d.r; })
-      .style("fill", function(d) { return color(d.data.Call_Type); })
-      .on("mouseover", function(d) {		
-    div.transition()		
-      .duration(200)		
-      .style("opacity", .9);	
-    
-      var duration = 300;
-  data.forEach(function(d, i) {
-    console.log(d.value);
-    node.transition().duration(duration).delay(i * duration)
-        .attr("r", d.value);
-});
-     
-    
-    div.html(d.data.Call_Type + ": <br>"+d.data.value  )	
-      .style("left", (d3.event.pageX) + "px")		
-      .style("top", (d3.event.pageY - 28) + "px");	
-  })					
-    .on("mouseout", function(d) {		
-    div.transition()		
-      .duration(500)		
-      .style("opacity", 0);	
-  });
-    
-node.append("text")
-            .attr("dy", ".2em")
-            .style("text-anchor", "middle")
-            .text(function(d) {
-                return d.data.Call_Type.substring(0, d.r / 3);
-            })
-            .attr("font-family", "sans-serif")
-            .attr("font-size", function(d){
-                return d.r/5;
-            })
-            .attr("fill", "white");    
-  
-node.append("text")
-            .attr("dy", "1.3em")
-            .style("text-anchor", "middle")
-            .text(function(d) {
-                return d.value;
-            })
-            .attr("font-family",  "Gill Sans", "Gill Sans MT")
-            .attr("font-size", function(d){
-                return d.r/5;
-            })
-            .attr("fill", "white");    
-    
-
-  var legend = svg.selectAll(".legend")
-  .data(data).enter()
-  .append("g")
-  .attr("class","legend")
-  .attr("transform", "translate(" + 780 + "," + 120+ ")");
-     
- 
-   legend.append("rect")
-     .attr("x", 0) 
-     .attr("y", function(d, i) { return 20 * i; })
-     .attr("width", 20)
-     .attr("height", 20)
-		.style("fill", function(d) { return color(d.Call_Type)});
-   
-
-    legend.append("text")
-     .attr("x", 25) 
-    	.attr("text-anchor", "start")
-     .attr("dy", "1em") 
-     .attr("y", function(d, i) { return 20 * i; })
-     .text(function(d) {return d.Call_Type;})
-    .attr("font-size", "12px"); 
-  
-      
-    legend.append("text")
-     .attr("x",31) 
-     .attr("dy", "-.2em")
-     .attr("y",-10)
-     .text("Country/Team")
-  	.attr("font-size", "17px"); 
-  
-})    
 
 
 var slideIndex = 1;
@@ -676,10 +421,6 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
 }
-    
-
-
-    
 </script>
 </body>
 </html>
