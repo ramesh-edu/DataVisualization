@@ -168,16 +168,22 @@ svg {
   border-top: none;
 }
 </style>
+    
 </head>
 <body>
     <h1 align="center">FIFA World Cup </h1>
     <h4 align="center">(Team Performance Review)</h4>
+    <h5 align="center">
+    Page 1: Provides Overal view of Teams comparision based on number of goals.
+    <p>    Page 2: Comparing the results of the teams per Worldcup</p>
+        <p>Page 3: Overal Teams performance on total number of goals made by each team in the worldcup from 1930-2014</p>
+    </h5>
 
     <!-- Tab links -->
 <div class="tab">
-    <button class="tablinks" onclick="openChart(event, 'ScatterPlot')">Scatter Plot</button>
-    <button class="tablinks" onclick="openChart(event, 'BarChart')">Bar Chart</button>
-    <button class="tablinks" onclick="openChart(event, 'BubbleChart')">Bubble Chart</button>
+    <button class="tablinks" onclick="openChart(event, 'ScatterPlot')">Page1</button>
+    <button class="tablinks" onclick="openChart(event, 'BarChart')">Page2</button>
+    <button class="tablinks" onclick="openChart(event, 'BubbleChart')">Page3</button>
   </div>
   
   <!-- Tab content -->
@@ -186,6 +192,7 @@ svg {
         <p>This graph shows values of two variables plotted along two axes (X-axis as year, Y-axis as number of goals). <br>
           The pattern of the resulting points reveals country that make number of goals in that FIFA world cup year.
           <br> Each point color represents different country. On highlighting the point shows country name, year and number of goals below the scatter plot. 
+            <br> This gives overal view of the teams performed in FIFA worldcup.
         </p>
       </div>
   </div>
@@ -195,6 +202,7 @@ svg {
       <div id="bar"> 
         <p>Based on selected year, below bar chart shows number of goals by participated country in the FIFA world cup of the selected year. <br>
          On highligting the bar will show the details of country and number of goals as a tool tip.
+            <br> This view helps in viewing the performance of the teams in a given specific worldcup.
         </p>
       </div>
   </div>
@@ -202,7 +210,8 @@ svg {
   <div id="BubbleChart" class="tabcontent">
     <div id="bubble">
       <p>This chart provides the information of overall perforamnce of the teams in the worldcup based on number of goals <br>
-        The team which performed more goals has been with larger area and teams with less number of goals made during the world cup with lesser area.  Here it was considered overall goals made during all the world cups.
+        The team which performed more goals has been with larger area and teams with less number of goals made during the world cup with lesser area. <br>  Here it was considered overall goals made during all the world cups. </br>
+      We can clearly observe the teams performing best in the world cup and teams which are nominal in this view.
       </p>
     </div>
   </div>
@@ -298,12 +307,11 @@ var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
               // tooltip mouseover event handler
               var tipMouseover = function(d) {
                   var color = colorScale(d.HOMETEAM);
-                  var html  = d.HOMETEAM + "<br/>" +
-                              "<span style='color:" + color + ";'>" + d.HOMETEAM + "</span><br/>" +
-                              "<b>" + d.YEAR + "</b> YEAR, <b/>" + d.Goals + "</b> Goals";
+                  var html  =  "<span style='color:" + color + ";'>" + d.HOMETEAM + "</span>" +
+                              "<b> YEAR " + d.YEAR + " </b> <b> Goals " + d.Goals + "</b>";
 
                   tooltip.html(html)
-                      .style("left", (d3.event.pageX + 15) + "px")
+                      .style("left", (d3.event.pageX + 30) + "px")
                       .style("top", (d3.event.pageY - 28) + "px")
                     .transition()
                       .duration(200) // ms
