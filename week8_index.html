@@ -519,7 +519,7 @@ var div = d3.select("body").append("div")
     .style("opacity", 0);
     
 
-d3.csv("data/total_goals.csv", function(d) {
+d3.csv("https://raw.githubusercontent.com/ramesh-edu/week8/master/data/total_goals.csv", function(d) {
   d.value = +d["Goals"];
   d.Call_Type = d["HOMETEAM"]
 
